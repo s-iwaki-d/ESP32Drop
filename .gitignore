@@ -1,0 +1,14 @@
+# arduino-cli build output (regenerated; large, machine-specific paths)
+.build*/
+.build-lint*.log
+
+# macOS / editors
+.DS_Store
+*.swp
+*~
+
+# Local captures are never committed: a captured transfer is somebody's real data. The
+# fixtures the host suites read live in testdata/ itself and are tracked.
+logs/
+testdata/captures/
+testdata/dvzip_body.bin
