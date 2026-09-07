@@ -1,0 +1,23 @@
+# The host suites: every parser and every piece of link-layer arithmetic, compiled from the
+# same headers the firmware uses, run on a laptop-class machine with ASan/UBSan. No board,
+# no arduino-cli. macOS because that is where the suites were written and run: cc is clang,
+# cpio(1) is BSD cpio, and tools/test-pack.sh compares against it.
+name: host tests
+on:
+  push:
+  pull_request:
+jobs:
+  host:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: layering rules
+        run: ./tools/check-library.sh
+      - name: host suites
+        run: |
+          rc=0
+          for t in tools/test-*.sh; do
+            echo "::group::$t"
+            if "$t"; then echo "::endgroup::"; else echo "::endgroup::"; echo "::error::$t failed"; rc=1; fi
+          done
+          exit $rc

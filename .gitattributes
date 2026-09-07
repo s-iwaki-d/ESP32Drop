@@ -1,0 +1,2 @@
+# Captured fixtures are byte-exact; never convert their line endings on checkout.
+testdata/** -text
